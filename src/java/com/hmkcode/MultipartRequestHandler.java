@@ -41,7 +41,6 @@ public class MultipartRequestHandler {
 				temp.setFileSize(part.getSize()/1024 +" Kb");
 				temp.setFileType(part.getContentType());
 				temp.setContent(part.getInputStream());
-				temp.setTwitter(twitter);
 				
 				// 3.3 Add created FileMeta object to List<FileMeta> files
 				files.add(temp);
@@ -79,10 +78,6 @@ public class MultipartRequestHandler {
 					
 					// 2.5 if FileItem is not of type "file"
 				    if (item.isFormField()) {
-
-				    	// 2.6 Search for "twitter" parameter
-				        if(item.getFieldName().equals("twitter"))
-				        	twitter = item.getString();
 				        
 				    } else {
 				       

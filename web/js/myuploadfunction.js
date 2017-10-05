@@ -14,8 +14,7 @@ $(function () {
                 		.append($('<td/>').text(file.fileName))
                 		.append($('<td/>').text(file.fileSize))
                 		.append($('<td/>').text(file.fileType))
-                		.append($('<td/>').html("<a href='upload?f="+index+"'>Click</a>"))
-                		.append($('<td/>').text("@"+file.twitter))
+                		.append($('<td/>').html("<a href='upload?f="+index+"'>Subir</a>"))
 
                 		)//end $("#uploaded-files").append()
             }); 
@@ -31,9 +30,7 @@ $(function () {
    		
 		dropZone: $('#dropzone')
     }).bind('fileuploadsubmit', function (e, data) {
-        // The example input, doesn't have to be part of the upload form:
-        var twitter = $('#twitter');
-        data.formData = {twitter: twitter.val()};        
+        // The example input, doesn't have to be part of the upload form:        
     });
    
 });
