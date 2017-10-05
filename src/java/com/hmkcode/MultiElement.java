@@ -12,15 +12,15 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.hmkcode.vo.FileMeta;
+import com.hmkcode.vo.ElementInfo;
 
-public class MultipartRequestHandler {
+public class MultiElement {
 
 	
 
-	public static List<FileMeta> uploadByJavaServletAPI(HttpServletRequest request) throws IOException, ServletException{
+	public static List<ElementInfo> uploadByJavaServletAPI(HttpServletRequest request) throws IOException, ServletException{
 		
-		List<FileMeta> files = new LinkedList<FileMeta>();
+		List<ElementInfo> files = new LinkedList<ElementInfo>();
 		
 		// 1. Get all parts
 		Collection<Part> parts = request.getParts();
@@ -29,14 +29,14 @@ public class MultipartRequestHandler {
 		String twitter = request.getParameter("twitter");
 
 		// 3. Go over each part
-		FileMeta temp = null;
+		ElementInfo temp = null;
 		for(Part part:parts){	
 
 			// 3.1 if part is multiparts "file"
 			if(part.getContentType() != null){
 				
 				// 3.2 Create a new FileMeta object
-				temp = new FileMeta();
+				temp = new ElementInfo();
 				temp.setFileName(getFilename(part));
 				temp.setFileSize(part.getSize()/1024 +" Kb");
 				temp.setFileType(part.getContentType());
@@ -50,13 +50,13 @@ public class MultipartRequestHandler {
 		return files;
 	}
 	
-	public static List<FileMeta> uploadByApacheFileUpload(HttpServletRequest request) throws IOException, ServletException{
+	public static List<ElementInfo> uploadByApacheFileUpload(HttpServletRequest request) throws IOException, ServletException{
 				
-		List<FileMeta> files = new LinkedList<FileMeta>();
+		List<ElementInfo> files = new LinkedList<ElementInfo>();
 		
 		// 1. Check request has multipart content
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-		FileMeta temp = null;
+		ElementInfo temp = null;
 		
 		// 2. If yes (it has multipart "files")
 		if(isMultipart){
@@ -82,7 +82,7 @@ public class MultipartRequestHandler {
 				    } else {
 				       
 				    	// 2.7 Create FileMeta object
-				    	temp = new FileMeta();
+				    	temp = new ElementInfo();
 						temp.setFileName(item.getName());
 						temp.setContent(item.getInputStream());
 						temp.setFileType(item.getContentType());
@@ -95,7 +95,7 @@ public class MultipartRequestHandler {
 				}
 				
 				// 2.8 Set "twitter" parameter 
-				for(FileMeta fm:files){
+				for(ElementInfo fm:files){
 					fm.setTwitter(twitter);
 				}
 				

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hmkcode.vo.FileMeta;
+import com.hmkcode.vo.ElementInfo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,12 +29,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 //this to be used with Java Servlet 3.0 API
 @MultipartConfig
-public class FileUploadServlet extends HttpServlet {
+public class ExcelFileUpload extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     // this will store uploaded files
-    private static List<FileMeta> files = new LinkedList<FileMeta>();
+    private static List<ElementInfo> files = new LinkedList<ElementInfo>();
 
     /**
      * *************************************************
@@ -45,7 +45,7 @@ public class FileUploadServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // 1. Upload File Using Java Servlet API
-        files.addAll(MultipartRequestHandler.uploadByJavaServletAPI(request));
+        files.addAll(MultiElement.uploadByJavaServletAPI(request));
         // Remove some files
         while (files.size() > 20) {
             files.remove(0);
@@ -75,7 +75,7 @@ public class FileUploadServlet extends HttpServlet {
         String value = request.getParameter("f");
 
         // 2. Get the file of index "f" from the list "files"
-        FileMeta getFile = files.get(Integer.parseInt(value));
+        ElementInfo getFile = files.get(Integer.parseInt(value));
 
         try {
             // 3. Set the response content type = file content type 
@@ -137,9 +137,9 @@ public class FileUploadServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException ex) {
-            Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExcelFileUpload.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidFormatException ex) {
-            Logger.getLogger(FileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExcelFileUpload.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

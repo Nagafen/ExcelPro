@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties({"content"})
-public class FileMeta {
+public class ElementInfo {
 	
 	
 
